@@ -8,11 +8,17 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-The penguin dataset has  `r ncol(penguins)` columns and `r nrow(penguins)` rows. There are 8 variables in this dataset include `names(penguins)`. It records 3 kinds of penguins and they are `unique(penguins$species)`. They are from different islands include `unique(penguins$island)`. Their average flipper length is `mean(penguins$flipper_length_mm, na.rm=TRUE)` mm. 
+```{r}
+data("penguins", package = "palmerpenguins")
+```
+
+
+The penguin dataset has `r ncol(penguins)` columns and `r nrow(penguins)` rows. There are 8 variables in this dataset include `r names(penguins)`. It records 3 kinds of penguins and they are `r unique(penguins$species)`. They are from different islands include `r unique(penguins$island)`. Their average flipper length is `r mean(penguins$flipper_length_mm, na.rm=TRUE)` mm. 
 
 
 ```{r}
-plotp=ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
+library(ggplot2)
+plotp = ggplot(penguins, aes(x = bill_length_mm, y = flipper_length_mm, color = species)) + geom_point()
 plotp
 ```
 ```{r}
