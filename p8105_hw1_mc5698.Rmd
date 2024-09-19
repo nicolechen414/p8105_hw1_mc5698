@@ -8,6 +8,8 @@ date: "`r Sys.Date()`"
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+#question 1
 ```{r}
 data("penguins", package = "palmerpenguins")
 ```
@@ -23,6 +25,12 @@ plotp
 ```
 ```{r}
 ggsave("penguins scatter plot.pdf", plot=plotp)
+```
+
+
+#question 2 
+```{r}
+
 ```
 
 ## R Markdown
