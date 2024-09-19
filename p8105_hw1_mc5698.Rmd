@@ -30,8 +30,30 @@ ggsave("penguins scatter plot.pdf", plot=plotp)
 
 #question 2 
 ```{r}
-
+df = tibble(
+  random_sample = rnorm(10),
+  vec_char = sample(letters, 10),
+  vec_logical = rnorm(10)>0,
+  vec_factor = factor(sample(c("level 1", "level 2", "level 3"),10, replace = TRUE))
+)
+df
 ```
+
+
+```{r setup,warning=FALSE}
+mean(df%>%pull(random_sample))
+mean(df%>%pull(vec_char))
+mean(df%>%pull(vec_logical))
+mean(df%>%pull(vec_factor))
+```
+When I try to apply mean function to these variables, only `r random_sample` and `r vec_logical ` work in this function and others show `r NA` in the output.
+
+```{r setup,warning=FALSE}
+as.numeric(df$vec_char)
+as.numeric(df$vec_logical)
+as.numeric(df$vec_factor)
+```
+When I applies the `r as.numeric` function to the logical, character, and factor variables, vectors in `r vec_logical` and `r vec_factor` could converted to numeric but vectors in `r vec_char`still show `r NA` in the output. Vectors in `r vec_logical` can be `r True` or `r False`, which can be converted to 1 or 0, while `r vec_char` cannot convert to numeric directly.
 
 ## R Markdown
 
