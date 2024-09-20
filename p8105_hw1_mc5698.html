@@ -10,7 +10,7 @@
 
 
 
-<meta name="date" content="2024-09-12" />
+<meta name="date" content="2024-09-19" />
 
 <title>p8105_hw1_mc5698</title>
 
@@ -350,11 +350,13 @@ display: none;
 
 
 <h1 class="title toc-ignore">p8105_hw1_mc5698</h1>
-<h4 class="date">2024-09-12</h4>
+<h4 class="date">2024-09-19</h4>
 
 </div>
 
 
+<pre class="r"><code>knitr::opts_chunk$set(echo = TRUE)</code></pre>
+<p>#question 1</p>
 <pre class="r"><code>data(&quot;penguins&quot;, package = &quot;palmerpenguins&quot;)</code></pre>
 <p>The penguin dataset has 8 columns and 344 rows. There are 8 variables
 in this dataset include species, island, bill_length_mm, bill_depth_mm,
@@ -372,8 +374,64 @@ plotp</code></pre>
 <pre><code>## Saving 7 x 5 in image</code></pre>
 <pre><code>## Warning: Removed 2 rows containing missing values or values outside the scale range
 ## (`geom_point()`).</code></pre>
-<div id="r-markdown" class="section level2">
-<h2>R Markdown</h2>
+<p>#question 2</p>
+<pre class="r"><code>library(tidyverse)</code></pre>
+<pre><code>## ── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+## ✔ dplyr     1.1.4     ✔ readr     2.1.5
+## ✔ forcats   1.0.0     ✔ stringr   1.5.1
+## ✔ lubridate 1.9.3     ✔ tibble    3.2.1
+## ✔ purrr     1.0.2     ✔ tidyr     1.3.1
+## ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+## ✖ dplyr::filter() masks stats::filter()
+## ✖ dplyr::lag()    masks stats::lag()
+## ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+<pre class="r"><code>df = tibble(
+  random_sample = rnorm(10),
+  vec_char = sample(letters, 10),
+  vec_logical = rnorm(10)&gt;0,
+  vec_factor = factor(sample(c(&quot;level 1&quot;, &quot;level 2&quot;, &quot;level 3&quot;),10, replace = TRUE))
+)
+df</code></pre>
+<pre><code>## # A tibble: 10 × 4
+##    random_sample vec_char vec_logical vec_factor
+##            &lt;dbl&gt; &lt;chr&gt;    &lt;lgl&gt;       &lt;fct&gt;     
+##  1        -1.13  f        TRUE        level 2   
+##  2         1.13  x        TRUE        level 1   
+##  3         0.107 a        FALSE       level 1   
+##  4        -1.46  l        FALSE       level 1   
+##  5         0.127 m        TRUE        level 2   
+##  6         1.12  p        FALSE       level 3   
+##  7        -1.27  c        TRUE        level 3   
+##  8         0.497 y        TRUE        level 3   
+##  9         0.264 k        TRUE        level 1   
+## 10         1.62  w        FALSE       level 1</code></pre>
+<pre class="r"><code>mean(df%&gt;%pull(random_sample))</code></pre>
+<pre><code>## [1] 0.1005687</code></pre>
+<pre class="r"><code>mean(df%&gt;%pull(vec_char))</code></pre>
+<pre><code>## [1] NA</code></pre>
+<pre class="r"><code>mean(df%&gt;%pull(vec_logical))</code></pre>
+<pre><code>## [1] 0.6</code></pre>
+<pre class="r"><code>mean(df%&gt;%pull(vec_factor))</code></pre>
+<pre><code>## [1] NA</code></pre>
+<p>When I try to apply mean function to these variables, only vectors in
+<code>random_sample</code> and <code>vec_logical</code> work in this
+function and others show <code>NA</code> in the output.</p>
+<pre class="r"><code>as.numeric(df$vec_char)</code></pre>
+<pre><code>## Warning: NAs introduced by coercion</code></pre>
+<pre><code>##  [1] NA NA NA NA NA NA NA NA NA NA</code></pre>
+<pre class="r"><code>as.numeric(df$vec_logical)</code></pre>
+<pre><code>##  [1] 1 1 0 0 1 0 1 1 1 0</code></pre>
+<pre class="r"><code>as.numeric(df$vec_factor)</code></pre>
+<pre><code>##  [1] 2 1 1 1 2 3 3 3 1 1</code></pre>
+<p>When I applies the as.numeric function to the logical, character, and
+factor variables, vectors in <code>vec_logical</code> and
+<code>vec_factor</code> could converted to numeric but vectors in
+<code>vec_char</code> still show <code>NA</code> in the output. Vectors
+in <code>vec_logical</code> can be <code>True</code> or
+<code>False</code>, which can be converted to 1 or 0, while
+<code>vec_char</code> cannot convert to numeric directly. This function
+would help me to convert vectors to numeric first and then apply the
+mean function on them. ## R Markdown</p>
 <p>This is an R Markdown document. Markdown is a simple formatting
 syntax for authoring HTML, PDF, and MS Word documents. For more details
 on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
@@ -389,7 +447,6 @@ chunk like this:</p>
 ##  Mean   :15.4   Mean   : 42.98  
 ##  3rd Qu.:19.0   3rd Qu.: 56.00  
 ##  Max.   :25.0   Max.   :120.00</code></pre>
-</div>
 <div id="including-plots" class="section level2">
 <h2>Including Plots</h2>
 <p>You can also embed plots, for example:</p>
