@@ -1,8 +1,8 @@
 ---
 title: "p8105_hw1_mc5698"
 output:
-  html_document: default
   pdf_document: default
+  html_document: default
 date: "`r Sys.Date()`"
 ---
 
@@ -42,7 +42,6 @@ df = tibble(
 df
 ```
 
-
 ```{r setup,warning=FALSE}
 mean(df%>%pull(random_sample))
 mean(df%>%pull(vec_char))
@@ -51,11 +50,12 @@ mean(df%>%pull(vec_factor))
 ```
 When I try to apply mean function to these variables, only vectors in `random_sample` and `vec_logical` work in this function and others show `NA` in the output.
 ```{r}
-as.numeric(df$vec_char)
-as.numeric(df$vec_logical)
-as.numeric(df$vec_factor)
+mean(as.numeric(df$vec_char))
+mean(as.numeric(df$vec_logical))
+mean(as.numeric(df$vec_factor))
 ```
-When I applies the as.numeric function to the logical, character, and factor variables, vectors in `vec_logical` and `vec_factor` could converted to numeric but vectors in `vec_char` still show `NA` in the output. Vectors in `vec_logical` can be `True` or `False`, which can be converted to 1 or 0, while  `vec_char` cannot convert to numeric directly. This function would help me to convert vectors to numeric first and then apply the mean function on them.
+When I applies the as.numeric function to the logical, character, and factor variables, vectors in `vec_logical` and `vec_factor` could converted to numeric but vectors in `vec_char` still show `NA` in the output. Vectors in `vec_logical` can be `True` or `False`, which can be converted to 1 or 0, while `vec_char` cannot convert to numeric directly. This function would help me to convert vectors to numeric first and then apply the mean function on them. Therefore, the mean of `vec_logical`is `r mean(as.numeric(df$vec_logical))` and the mean of `vec_factor` is `r mean(as.numeric(df$vec_factor))`. 
+
 ## R Markdown
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
